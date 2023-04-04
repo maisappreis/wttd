@@ -1,0 +1,33 @@
+SECRET_KEY=YOUR_SECRET_KEY
+DEBUG=False
+ALLOWED_HOSTS=127.0.0.1, .localhost
+
+
+# on Heroku
+# EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+# EMAIL_HOST=localhost
+# EMAIL_PORT=25
+
+
+# USANDO o SendGrid - um serviço de envio de emails
+# smtp = Simple Mail Transfer Protocol
+# Protocolo de Transferência de Correio Simples é o protocolo padrão de envio de
+# mensagens de correio eletrônico através da Internet entre dois dispositivos computacionais, definido na RFC 821.
+# O email do enviador (sender) configurado na view.py precisa bater com o e-mail cadastrado no SendGrid.
+
+
+# EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+# EMAIL_HOST=smtp.sendgrid.com
+# EMAIL_PORT=587
+# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER=apikey
+# EMAIL_HOST_PASSWORD= # copia e cola a apikey do SendGrid
+
+# USANDO o Gmail
+
+# EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+# EMAIL_HOST=smtp.gmail.com
+# EMAIL_PORT=587
+# EMAIL_USE_TLS=True
+# EMAIL_HOST_USER=seu_email@gmail.com
+# EMAIL_HOST_PASSWORD=SECRET
