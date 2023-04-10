@@ -1,44 +1,78 @@
 # Eventex
 
-Sistema de Eventos
+It's a small event system.
 
-## Como desenvolver?
+## 🛠️ Installation
 
-1. Clone o repositório
-2. Crie um virtualenv com Python 3.5
-    No MAC: source .wttd/bin/activate
-    No Windowns: .wttd\Scripts\Activate.ps1
-3. Ative o virtualenv
-4. Instale as dependências
-5. Configure a instância com o .env
-6. Execute os testes
+In the project directory `/wttd`:
 
-```console
-git clone https://github.com/maisapreis/wttd.git
-cd wttd
+1 - Create your `.env`
+
+2 - Create a virtual environment:
+```
 python -m venv .wttd
+```
+
+3 - Activate the Virtual Environment:
+
+- on Mac (bash/zsh)
+```
 source .wttd/bin/activate
+```
+
+- on Windows (PowerShell)
+```
+.wttd\Scripts\Activate.ps1
+```
+
+4 - Install the dependencies:
+```
 pip install -r requirements.txt
-cp contrib/env-sample .env
+```
+
+5 - Run the tests
+```
 python manage.py test
 ```
 
-## Como fazer o deploy?
+## 🌱 On Development
 
-1. Crie uma instância no Heroku
-2. Envie as configurações para o Heroku
-3. Defina uma SECRET_KEY segura para a instância
-4. Defina DEGUB=False
-5. Configure o serviço de email
-6. Envie o código para o Heroku
+In the project directory `/wttd`:
+
+1 - Activate the Virtual Environment:
+
+- on Mac (bash/zsh)
+```
+source .wttd/bin/activate
+```
+
+- on Windows (PowerShell)
+```
+.wttd\Scripts\Activate.ps1
+```
+
+2 - Run in the development mode:
+```
+python manage.py runserver
+```
+
+
+## 💻 On Production
+
+1. Create an instance on Heroku
+2. Send settings to Heroku
+3. Set a secure SECRET_KEY for the instance
+4. Set DEGUB=False
+5. Configure email service
+6. Send the code to Heroku
 
 
 ```console
-heroku create minhainstancia
+heroku create myinstance
 heroku config:push
 heroku config:set SECRET_KEY=`XXX`
 heroku config:set DEGUB=False
 
-# configuro o email
+# configure email
 git push heroku master --force
 ```
