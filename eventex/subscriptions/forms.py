@@ -17,3 +17,19 @@ class SubscriptionForm(forms.Form):
     cpf = forms.CharField(label='CPF', validators=[validate_cpf])
     email = forms.EmailField(label='E-mail')
     phone = forms.CharField(label='Telefone')
+
+    # Esse é um método especial, basta chamar o 'clean' mais o '_' e mais o nome do campo.
+    # Quando implementar esse método, é necessário retornar o valor correto, porque ele vai substituir o 'cleaned_data['name']'
+    def clean_name(self):
+        name = self.cleaned_data['name']
+
+        words = []
+        for w in name.split():
+            words.append(w.capitalize())
+
+        # OU, agora usando List Comprehension
+        # words = [w.capitalized() for w in name.split()]
+
+        capitalized_name = ' '.join(words)
+
+        return capitalized_name
