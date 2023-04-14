@@ -1,11 +1,15 @@
 from django.test import TestCase
+from django.shortcuts import resolve_url as r # Usa a estrutura de URLs nomeadas
 
+# resolve_url serve para facilitar a manutenção das URLs em grandes aplicações.
 # Um 'assert' por método de teste.
 #Rodar teste: manage test
 
+ 
+
 class HomeTest(TestCase):
     def setUp(self):
-        self.response = self.client.get('/')
+        self.response = self.client.get(r('home')) # a rota raiz '/' agora fica r('home'), usando as URLs nomeadas.
 
     def test_get(self):
         """GET / must return status code 200"""
@@ -16,4 +20,6 @@ class HomeTest(TestCase):
         self.assertTemplateUsed(self.response, 'index.html')
 
     def test_subscription_link(self):
-        self.assertContains(self.response, 'href="/inscricao/"')
+        """Subscription link > href="/inscricao/"""
+        expected = 'href="{}"'.format(r('subscriptions:new'))
+        self.assertContains(self.response, expected)

@@ -1,6 +1,7 @@
 # Eventex
 
-It's a small event system.
+It's a small event system created using Django framework.
+Project from Henrique Bastos course. https://henriquebastos.nutror.com/
 
 ## 🛠️ Installation
 
