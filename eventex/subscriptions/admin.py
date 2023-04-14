@@ -4,10 +4,11 @@ from eventex.subscriptions.models import Subscription
 
 
 class SubscriptionModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'phone', 'cpf', 'created_at', 'subscribed_today') # colunas da tabela no painel admin.
+    list_display = ('name', 'email', 'phone', 'cpf',
+                    'created_at', 'subscribed_today', 'paid') # Exibe as colunas da tabela no painel admin.
     date_hierarchy = 'created_at' # ordenação pela data
     search_fields = ('name', 'email', 'phone', 'cpf', 'created_at') # cria um campo de pesquisa.
-    list_filter = ('created_at',)
+    list_filter = ('paid', 'created_at')
 
     def subscribed_today(self, obj):
         return obj.created_at == now().date()
