@@ -5,4 +5,8 @@ from django.shortcuts import render
 # E retorna uma instância de http response.
 
 def home(request):
-    return render(request, 'index.html') # processa o request com um template.
+    speakers = [
+        {'name': 'Grace Hopper', 'photo': 'http://hbn.link/hopper-pic'},
+        {'name': 'Alan Turing', 'photo': 'http://hbn.link/turing-pic'}
+    ]
+    return render(request, 'index.html', {'speakers': speakers}) # processa o request com um template.
