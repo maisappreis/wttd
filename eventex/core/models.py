@@ -44,8 +44,12 @@ class Contact(models.Model):
     def __str__(self):
         return self.value
     
+# A classe Activity é uma Classe Abstrata, é a base para os modelos de TALK e COURSE.
+# Quando 2 classes possuem muitas coisas em comum, é conveniente usar essa Herança de Classe.
+# Assim ela recebe esse 'abstract = True'.
+# Modelos Abstratos não possuem tabela no banco.
 
-class Talk(models.Model):
+class Activity(models.Model):
     title = models.CharField('título', max_length=200)
     start = models.TimeField('início', blank=True, null=True)
     description = models.TextField('descrição', blank=True)
@@ -54,8 +58,22 @@ class Talk(models.Model):
     objects = PeriodManager()
 
     class Meta:
+        abstract = True
         verbose_name = 'palestra'
         verbose_name_plural = 'palestras'
 
     def __str__(self):
         return self.title
+
+# E aqui, os 2 Modelos Concretos, com tabelas no banco.
+
+class Talk(Activity):
+    pass
+
+
+class Course(Activity):
+    slots = models.IntegerField() # Course possui esse campo extra.
+
+    class Meta:
+        verbose_name = 'curso'
+        verbose_name_plural = 'cursos'
