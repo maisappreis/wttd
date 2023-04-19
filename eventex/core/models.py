@@ -48,8 +48,28 @@ class Contact(models.Model):
 # Quando 2 classes possuem muitas coisas em comum, é conveniente usar essa Herança de Classe.
 # Assim ela recebe esse 'abstract = True'.
 # Modelos Abstratos não possuem tabela no banco.
+# Classes Abstratas são para modelos sem conecxão um com outro, mas que possuem similiridade
 
-class Activity(models.Model):
+# class Activity(models.Model):
+#     title = models.CharField('título', max_length=200)
+#     start = models.TimeField('início', blank=True, null=True)
+#     description = models.TextField('descrição', blank=True)
+#     speakers = models.ManyToManyField('Speaker', verbose_name='palestrantes', blank=True)
+
+#     objects = PeriodManager()
+
+#     class Meta:
+#         abstract = True
+#         verbose_name = 'palestra'
+#         verbose_name_plural = 'palestras'
+
+#     def __str__(self):
+#         return self.title
+
+# class Talk(Activity):
+#   pass
+
+class Talk(models.Model): # Modelo Concreto.
     title = models.CharField('título', max_length=200)
     start = models.TimeField('início', blank=True, null=True)
     description = models.TextField('descrição', blank=True)
@@ -58,22 +78,42 @@ class Activity(models.Model):
     objects = PeriodManager()
 
     class Meta:
-        abstract = True
+        ordering = ['start']
         verbose_name = 'palestra'
         verbose_name_plural = 'palestras'
 
     def __str__(self):
         return self.title
 
-# E aqui, os 2 Modelos Concretos, com tabelas no banco.
+# Mas existe a Multi Table Inheritance, em que há relação entre tabelas.
+# Uma fica sendo a extensão da outra.
+# Assim, todo Course seria um Talk.
 
-class Talk(Activity):
-    pass
+# Como alterar o Modelo sem fazer com que tudo do banco de dados, já cadastrados em produção seja excluído.
+# 1 - Renomear Course para CourseOld.
+# 2 - Fazer o Course herdar de Talk, e não se Activity.
+# 3 - Arrumar os testes do modelo.
+# 4 - Migrar os dados de CourseOld para o nosso novo Course.
+# Comando: `manage makemigrations --empty -n course_abc_to_mti core` (Abstract to Multi Table Inheritance)
+# 5 - Editar o arquivo gerado pela migração
+# 6 - Roda as migrações
 
 
-class Course(Activity):
+# class CourseOld(Activity):
+#     slots = models.IntegerField() # Course possui esse campo extra.
+
+#     class Meta:
+#         verbose_name = 'curso'
+#         verbose_name_plural = 'cursos'
+
+
+class Course(Talk):
     slots = models.IntegerField() # Course possui esse campo extra.
+
+    objects = PeriodManager()
 
     class Meta:
         verbose_name = 'curso'
         verbose_name_plural = 'cursos'
+
+
