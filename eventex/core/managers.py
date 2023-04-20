@@ -22,7 +22,17 @@ class KindContactManager(models.Manager):
         return self.get_queryset().phones()
     
 
-class PeriodManager(models.Manager):
+# class PeriodManager(models.Manager):
+#     MIDDAY = '12:00'
+
+#     def at_morning(self):
+#         return self.filter(start__lt=self.MIDDAY) # lt = less than
+    
+#     def at_afternoon(self):
+#         return self.filter(start__gte=self.MIDDAY) # gte = greater than or equal
+    
+
+class PeriodQuerySet(models.QuerySet):
     MIDDAY = '12:00'
 
     def at_morning(self):
@@ -30,3 +40,6 @@ class PeriodManager(models.Manager):
     
     def at_afternoon(self):
         return self.filter(start__gte=self.MIDDAY) # gte = greater than or equal
+    
+
+PeriodManager = models.Manager.from_queryset(PeriodQuerySet) # Cria uma Classe Manager.
